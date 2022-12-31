@@ -19,17 +19,19 @@ const connect = async() => {
 
 app.use(express.json());
 
-app.use('products', productsRoute);
+app.use('/products', productsRoute);
 
 app.use((err, req, res, next) => {
     return res.status(500).send(err);
 })
 
+mongoose.set('strictQuery', false);
+
 mongoose.connection.on('disconnected', () => {
     console.log("Database disconnected.");
 })
 
-app.listen(3000, () => {
+app.listen(8800, () => {
     connect();
     console.log("Connected to server");
 })
