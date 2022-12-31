@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import productsRoute from "./routes/products.js";
 
-const app = express();
 dotenv.config();
+const app = express();
 
 const connect = async() => {
     try {
@@ -15,15 +15,21 @@ const connect = async() => {
     }
 }
 
-mongoose.set("strictQuery", false);
+// MIDDLEWARES
+
+app.use(express.json());
+
+app.use('products', productsRoute);
+
+app.use((err, req, res, next) => {
+    return res.status(500).send(err);
+})
 
 mongoose.connection.on('disconnected', () => {
     console.log("Database disconnected.");
 })
 
-app.use('products', productsRoute);
-
-app.listen(8800, () => {
+app.listen(3000, () => {
     connect();
     console.log("Connected to server");
 })

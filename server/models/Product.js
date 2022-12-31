@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PatientSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
         name: {
                 type: String,
                 required: true,
@@ -9,16 +9,12 @@ const PatientSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
         },
-        password: {
-                type: String,
-                required: true,
-        },
         featured: {
                 type: Boolean,
                 default: false,
         },
         rating: {
-                type: Decimal128,
+                type: mongoose.Types.Decimal128,
         },
         company: {
                 type: String,
@@ -33,4 +29,4 @@ const PatientSchema = new mongoose.Schema({
                 timestamps: true,
         })
 
-export default mongoose.model("Patient",PatientSchema);
+export default mongoose.model("Product",ProductSchema);
